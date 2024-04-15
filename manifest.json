@@ -4,7 +4,10 @@
         "minor_version": 1
     },
     "display_information": {
-        "name": "Bolt Template App"
+        "name": "Yogi",
+        "description": "Release Supervisor",
+        "background_color": "#004492",
+        "long_description": "Yogi will remind us when a release is done all the tasks we need done so that the release is complete. It's called from a Github action. More text ..............................................."
     },
     "features": {
         "app_home": {
@@ -13,8 +16,8 @@
             "messages_tab_read_only_enabled": true
         },
         "bot_user": {
-            "display_name": "Bolt Template App",
-            "always_online": false
+            "display_name": "Yogi",
+            "always_online": true
         },
         "shortcuts": [
             {
@@ -35,8 +38,10 @@
     "oauth_config": {
         "scopes": {
             "bot": [
-                "channels:history",
+                "channels:read",
                 "chat:write",
+                "chat:write.public",
+                "channels:history",
                 "commands"
             ]
         }

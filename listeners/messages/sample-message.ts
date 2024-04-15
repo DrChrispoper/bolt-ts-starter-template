@@ -1,9 +1,30 @@
-import { AllMiddlewareArgs, SlackEventMiddlewareArgs } from '@slack/bolt';
+import { AllMiddlewareArgs, GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 
-const sampleMessageCallback = async ({ context, say }: AllMiddlewareArgs & SlackEventMiddlewareArgs<'message'>) => {
+const sampleMessageCallback = async (params: AllMiddlewareArgs & SlackEventMiddlewareArgs<'message'>) => {
+  const { message, say } = params;
   try {
-    const greeting = context.matches[0];
-    await say(`${greeting}, how are you?`);
+    const { user } = (message as GenericMessageEvent);
+    const userDetails = await params.client.users.info({ user });
+
+    await say({
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `Hey there <@${userDetails.user?.name}>!`,
+          },
+          accessory: {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Click Me',
+            },
+            action_id: 'sample_action_id',
+          },
+        },
+      ],
+    });
   } catch (error) {
     console.error(error);
   }

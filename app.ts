@@ -10,6 +10,7 @@ const app = new App({
   socketMode: true,
   appToken: process.env.SLACK_APP_TOKEN,
   logLevel: LogLevel.DEBUG,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
 });
 
 /** Register Listeners */
@@ -18,7 +19,7 @@ registerListeners(app);
 /** Start Bolt App */
 (async () => {
   try {
-    await app.start(process.env.PORT || 3000);
+    await app.start(process.env.PORT || 3100);
     console.log('⚡️ Bolt app is running! ⚡️');
   } catch (error) {
     console.error('Unable to start App', error);
